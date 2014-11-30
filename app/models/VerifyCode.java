@@ -1,7 +1,9 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.management.Query;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -38,7 +40,21 @@ public class VerifyCode extends Model {
 	 **/
 	@Column(name="timestamp", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
 	public Date timestamp = new Date();;
+	public static Finder<Long,VerifyCode> find = new Finder(
+		    Long.class, VerifyCode.class
+		  );
 	
+	public static List<VerifyCode> all() {
+		  return find.all();
+		}
+	
+	public static VerifyCode findById(Long id) {
+		  return find.byId(id);
+		}
+	
+	public static VerifyCode find(String email, String code) {
+		   return find.where().eq("code", code).findUnique();
+		}
 //
 //	/**
 //	 * Create a new VerifyCode model

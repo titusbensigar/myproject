@@ -5,7 +5,8 @@
 # Home page
 GET     /                           controllers.Application.login()
 POST	/registeruser				controllers.Application.registerUser()
-GET		/join/:userId/{<[0-9a-f-]+>code} controllers.Application.join(userId:Long,code:String)
+GET		/join/:userId/$code<[0-9a-f-]+> controllers.Application.join(userId:Long,code:String)
+
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

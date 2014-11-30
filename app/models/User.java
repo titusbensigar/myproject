@@ -4,6 +4,7 @@
 package models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -32,6 +33,7 @@ public class User extends Model {
 	public String password;
 	public String firstname;
 	public String lastname;
+	public boolean isActive = false;
 	public boolean isAdmin = false;
 	public boolean isTCAccepted = false;
 	@Formats.DateTime(pattern="MM/dd/yyyy hh:mm:ss")
@@ -39,4 +41,16 @@ public class User extends Model {
 	
 	@Formats.DateTime(pattern="MM/dd/yyyy hh:mm:ss")
 	public Date modifiedOn = new Date();
+	
+	public static Finder<Long,User> find = new Finder(
+		    Long.class, User.class
+		  );
+	
+	public static List<User> all() {
+		  return find.all();
+		}
+	
+	public static User findById(Long id) {
+		  return find.byId(id);
+		}
 }

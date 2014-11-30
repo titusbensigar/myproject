@@ -10,6 +10,7 @@ create table User (
   password                  varchar(255),
   firstname                 varchar(255),
   lastname                  varchar(255),
+  is_active                 tinyint(1) default 0,
   is_admin                  tinyint(1) default 0,
   is_tcaccepted             tinyint(1) default 0,
   created_on                datetime,

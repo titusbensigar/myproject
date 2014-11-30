@@ -8,7 +8,7 @@ import play.Logger;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.login;
+import views.html.*;
 
 import com.typesafe.plugin.MailerAPI;
 import com.typesafe.plugin.MailerPlugin;
@@ -25,7 +25,21 @@ public class Application extends Controller {
     }
     
     public static Result join(Long userId, String code) {
-        return ok(login.render());
+    	Logger.info("userId: " + userId + " ; code: " + code);
+    	User user = User.findById(userId);
+    	String email = null;
+    	if (user != null) {
+    		email = user.email;
+    	}
+    	VerifyCode vCode = VerifyCode.find(email, code);
+    	if (vCode != null) {
+    		flash("success","Verification code matched.");
+    		 return ok(dashboard.render());
+    	} else {
+    		flash("error","Verification code not matched.");
+            return ok(login.render());
+    	}
+       
     }
 
     public static Result registerUser() {
